@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdBlocker Pro — Settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="var(--accent)"/>
+            <path d="M10 14l-2-2 1.4-1.4L10 11.2l4.6-4.6L16 8l-6 6z" fill="white"/>
+          </svg>
+        </div>
+        <span class="brand-name">AdBlocker Pro</span>
+      </div>
+      <ul class="nav-list">
+        <li><a class="nav-link active" data-tab="general" href="#">General</a></li>
+        <li><a class="nav-link" data-tab="whitelist" href="#">Whitelist</a></li>
+        <li><a class="nav-link" data-tab="stats" href="#">Statistics</a></li>
+        <li><a class="nav-link" data-tab="about" href="#">About</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main content -->
+    <main class="main">
+
+      <!-- ── General ── -->
+      <section id="tab-general" class="tab-pane active">
+        <h2 class="page-title">General Settings</h2>
+
+        <div class="card">
+          <div class="card-header">Protection</div>
+          <div class="setting-row">
+            <div>
+              <div class="setting-name">Enable AdBlocker Pro</div>
+              <div class="setting-desc">Master switch — disabling pauses all blocking</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="s-enabled" checked>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div>
+              <div class="setting-name">Block Ads</div>
+              <div class="setting-desc">Network-level ad removal (60 rule sets)</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="s-ads" checked>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div>
+              <div class="setting-name">Block Trackers</div>
+              <div class="setting-desc">Analytics, session recorders, social pixels</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="s-trackers" checked>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+          <div class="setting-row">
+            <div>
+              <div class="setting-name">Block Malware &amp; Miners</div>
+              <div class="setting-desc">Crypto miners, aggressive popads, malicious scripts</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="s-malware" checked>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Appearance</div>
+          <div class="setting-row">
+            <div>
+              <div class="setting-name">Show block count badge</div>
+              <div class="setting-desc">Display blocked count on the extension icon</div>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="s-badge" checked>
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button id="btn-save" class="btn btn-primary">Save changes</button>
+          <span id="save-status" class="save-status"></span>
+        </div>
+      </section>
+
+      <!-- ── Whitelist ── -->
+      <section id="tab-whitelist" class="tab-pane">
+        <h2 class="page-title">Whitelist</h2>
+        <p class="page-desc">Domains added here will have all blocking disabled. Enter the root domain (e.g. <code>example.com</code>).</p>
+
+        <div class="card">
+          <div class="add-row">
+            <input type="text" id="wl-input" class="text-input" placeholder="example.com" autocomplete="off" spellcheck="false">
+            <button id="wl-add" class="btn btn-primary">Add</button>
+          </div>
+          <div id="wl-error" class="field-error"></div>
+          <ul id="wl-list" class="wl-list">
+            <!-- populated by JS -->
+          </ul>
+          <div id="wl-empty" class="empty-state">No whitelisted domains yet.</div>
+        </div>
+      </section>
+
+      <!-- ── Stats ── -->
+      <section id="tab-stats" class="tab-pane">
+        <h2 class="page-title">Statistics</h2>
+
+        <div class="stats-grid">
+          <div class="big-stat">
+            <span id="gs-total" class="big-stat-value">0</span>
+            <span class="big-stat-label">Total blocked</span>
+          </div>
+          <div class="big-stat">
+            <span id="gs-ads" class="big-stat-value">0</span>
+            <span class="big-stat-label">Ads blocked</span>
+          </div>
+          <div class="big-stat">
+            <span id="gs-trackers" class="big-stat-value">0</span>
+            <span class="big-stat-label">Trackers blocked</span>
+          </div>
+          <div class="big-stat big-stat-danger">
+            <span id="gs-malware" class="big-stat-value">0</span>
+            <span class="big-stat-label">Threats blocked</span>
+          </div>
+          <div class="big-stat big-stat-green">
+            <span id="gs-pages" class="big-stat-value">0</span>
+            <span class="big-stat-label">Pages protected</span>
+          </div>
+        </div>
+
+        <div class="actions-row">
+          <button id="btn-reset-stats" class="btn btn-danger-outline">Reset statistics</button>
+        </div>
+      </section>
+
+      <!-- ── About ── -->
+      <section id="tab-about" class="tab-pane">
+        <h2 class="page-title">About</h2>
+        <div class="card about-card">
+          <div class="about-logo">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="var(--accent)"/>
+              <path d="M10 14l-2-2 1.4-1.4L10 11.2l4.6-4.6L16 8l-6 6z" fill="white"/>
+            </svg>
+          </div>
+          <h3 class="about-name">AdBlocker Pro</h3>
+          <p class="about-version" id="about-version">Version 1.0.0</p>
+          <p class="about-desc">A fast, privacy-first ad blocker for Chrome, Firefox, and Safari. Blocks 100+ ad networks, trackers, and malware scripts using declarativeNetRequest rules.</p>
+
+          <div class="about-stats-row">
+            <div class="about-stat"><strong>60</strong><span>Ad rules</span></div>
+            <div class="about-stat"><strong>61</strong><span>Tracker rules</span></div>
+            <div class="about-stat"><strong>25</strong><span>Malware rules</span></div>
+          </div>
+
+          <div class="about-links">
+            <a href="#" class="about-link">Report an issue</a>
+            <span class="sep">·</span>
+            <a href="#" class="about-link">Privacy policy</a>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

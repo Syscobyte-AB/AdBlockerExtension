@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdBlocker Pro</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z" fill="var(--accent)"/>
+            <path d="M10 14l-2-2 1.4-1.4L10 11.2l4.6-4.6L16 8l-6 6z" fill="white"/>
+          </svg>
+        </div>
+        <div class="title-group">
+          <h1 class="app-name">AdBlocker Pro</h1>
+          <span id="status-label" class="status-badge status-on">Protected</span>
+        </div>
+      </div>
+      <label class="toggle" title="Enable / disable protection">
+        <input type="checkbox" id="master-toggle" checked>
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+        </span>
+      </label>
+    </header>
+
+    <!-- Current site banner -->
+    <div id="site-banner" class="site-banner">
+      <span class="site-icon">🌐</span>
+      <span id="site-domain" class="site-domain">—</span>
+      <button id="whitelist-btn" class="chip chip-allow" title="Allow this site">Allow site</button>
+    </div>
+
+    <!-- Stats row -->
+    <section class="stats-row">
+      <div class="stat-card" title="Total requests blocked on this page">
+        <span id="stat-page" class="stat-value">0</span>
+        <span class="stat-label">This page</span>
+      </div>
+      <div class="stat-card" title="Ads blocked since install">
+        <span id="stat-ads" class="stat-value">0</span>
+        <span class="stat-label">Ads</span>
+      </div>
+      <div class="stat-card" title="Trackers blocked since install">
+        <span id="stat-trackers" class="stat-value">0</span>
+        <span class="stat-label">Trackers</span>
+      </div>
+      <div class="stat-card" title="Malware/miner scripts blocked">
+        <span id="stat-malware" class="stat-value">0</span>
+        <span class="stat-label">Threats</span>
+      </div>
+    </section>
+
+    <!-- Feature toggles -->
+    <section class="features">
+      <div class="feature-row">
+        <div class="feature-info">
+          <span class="feature-icon">🚫</span>
+          <div>
+            <span class="feature-name">Block Ads</span>
+            <span class="feature-desc">Removes banner, video, and native ads</span>
+          </div>
+        </div>
+        <label class="toggle toggle-sm">
+          <input type="checkbox" id="toggle-ads" checked>
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        </label>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-info">
+          <span class="feature-icon">👁️</span>
+          <div>
+            <span class="feature-name">Block Trackers</span>
+            <span class="feature-desc">Stops analytics and fingerprinting</span>
+          </div>
+        </div>
+        <label class="toggle toggle-sm">
+          <input type="checkbox" id="toggle-trackers" checked>
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        </label>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-info">
+          <span class="feature-icon">☣️</span>
+          <div>
+            <span class="feature-name">Block Malware</span>
+            <span class="feature-desc">Blocks miners and malicious scripts</span>
+          </div>
+        </div>
+        <label class="toggle toggle-sm">
+          <input type="checkbox" id="toggle-malware" checked>
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <button id="btn-settings" class="footer-link">Settings</button>
+      <span class="footer-sep">·</span>
+      <button id="btn-reset" class="footer-link footer-link-muted">Reset stats</button>
+    </footer>
+
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

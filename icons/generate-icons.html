@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--
+  AdBlocker Pro — Icon Generator
+  Open this file in any browser, then click "Download All Icons".
+  Save the generated PNGs into this /icons/ directory.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Generate Icons</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 520px; margin: 40px auto; padding: 20px; }
+  h1 { font-size: 18px; margin-bottom: 16px; }
+  .previews { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; margin: 20px 0; }
+  .preview { text-align: center; font-size: 11px; color: #666; }
+  canvas { display: block; border-radius: calc(var(--r) * 1px); box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+  button { background: #3b6cf7; color: #fff; border: none; padding: 10px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  button:hover { opacity: .85; }
+  p { color: #555; font-size: 13px; line-height: 1.6; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<h1>AdBlocker Pro — Icon Generator</h1>
+<p>This tool generates the required PNG icons for the extension. Click the button below, then save all downloaded files into the <code>icons/</code> folder.</p>
+
+<div class="previews" id="previews"></div>
+<button id="btn">Download All Icons</button>
+
+<script>
+const SIZES = [16, 32, 48, 128];
+
+function drawIcon(size) {
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const s = size;
+  const r = s * 0.18; // corner radius
+
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, s, s);
+  grad.addColorStop(0, '#3b6cf7');
+  grad.addColorStop(1, '#6b3bf7');
+
+  // Rounded rect background
+  ctx.beginPath();
+  ctx.moveTo(r, 0);
+  ctx.lineTo(s - r, 0);
+  ctx.quadraticCurveTo(s, 0, s, r);
+  ctx.lineTo(s, s - r);
+  ctx.quadraticCurveTo(s, s, s - r, s);
+  ctx.lineTo(r, s);
+  ctx.quadraticCurveTo(0, s, 0, s - r);
+  ctx.lineTo(0, r);
+  ctx.quadraticCurveTo(0, 0, r, 0);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // Shield path (scaled to canvas)
+  const cx = s / 2;
+  const scale = s / 24;
+  ctx.save();
+  ctx.translate(cx - 12 * scale, s * 0.07);
+  ctx.scale(scale, scale);
+
+  // Outer shield
+  ctx.beginPath();
+  ctx.moveTo(12, 2);
+  ctx.lineTo(3, 6.5);
+  ctx.lineTo(3, 11.5);
+  ctx.bezierCurveTo(3, 16.5, 6.5, 21.2, 12, 22.4);
+  ctx.bezierCurveTo(17.5, 21.2, 21, 16.5, 21, 11.5);
+  ctx.lineTo(21, 6.5);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+  ctx.lineWidth = 1.2;
+  ctx.stroke();
+
+  // Checkmark
+  ctx.beginPath();
+  ctx.moveTo(8.5, 12);
+  ctx.lineTo(11, 14.5);
+  ctx.lineTo(15.5, 9.5);
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = size > 32 ? 2 : 1.5;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+
+  ctx.restore();
+  return canvas;
+}
+
+// Render previews
+const container = document.getElementById('previews');
+const canvases = {};
+
+for (const size of SIZES) {
+  const c = drawIcon(size);
+  c.style.setProperty('--r', Math.round(size * 0.18));
+  canvases[size] = c;
+  const wrap = document.createElement('div');
+  wrap.className = 'preview';
+  wrap.appendChild(c);
+  wrap.insertAdjacentText('beforeend', `\nicon${size}.png`);
+  container.appendChild(wrap);
+}
+
+// Download
+document.getElementById('btn').addEventListener('click', () => {
+  for (const size of SIZES) {
+    const a = document.createElement('a');
+    a.download = `icon${size}.png`;
+    a.href = canvases[size].toDataURL('image/png');
+    a.click();
+  }
+});
+</script>
+</body>
+</html>
